@@ -5,6 +5,7 @@ namespace App\DataModel\Model;
 class Film
 {
     private $id;
+    private $user;
     private $name;
     private $description;
     private $release;
@@ -15,8 +16,17 @@ class Film
     private $country;
     private $genre;
     private $photo;
+    private $commentCount;
+    private $commentList;
     private $status;
     private $createdAt;
+
+    public function __construct()
+    {
+        $this->user = new User();
+        $this->commentList = array();
+        $this->genre = array();
+    }
 
     /**
      * @return mixed
@@ -173,25 +183,9 @@ class Film
     /**
      * @param mixed $genre
      */
-    public function setGenre($genre): void
+    public function addGenre($genre): void
     {
-        $this->genre = $genre;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param mixed $photo
-     */
-    public function setPhoto($photo): void
-    {
-        $this->photo = $photo;
+        $this->genre[] = $genre;
     }
 
     /**
@@ -225,4 +219,70 @@ class Film
     {
         $this->createdAt = $createdAt;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCommentList(): array
+    {
+        return $this->commentList;
+    }
+
+    /**
+     * @param array $commentList
+     */
+    public function setCommentList($commentList): void
+    {
+        $this->commentList[] = $commentList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo): void
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommentCount()
+    {
+        return $this->commentCount;
+    }
+
+    /**
+     * @param mixed $commentCount
+     */
+    public function setCommentCount($commentCount): void
+    {
+        $this->commentCount = $commentCount;
+    }
+
+
 }

@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::group([ 'middleware' => 'ForceSSL'], function() {
+    Route::get('/', 'FilmController@showFilms')->name('home')->middleware('auth');
+    Route::prefix('/films')->group(function () {
+        Route::get('/', 'FilmController@showFilms')->name('showPosts')->middleware('auth');
+        Route::get('/create', 'FilmController@create')->name('create')->middleware('auth');
+        Route::get('/films/{name}', 'FilmController@filmWithComments')->name('filmDetails')->middleware('auth');
+    });
+//});
