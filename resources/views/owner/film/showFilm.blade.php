@@ -33,24 +33,24 @@
                                     @if(count($films) > 0)
                                         @foreach($films as $post)
                                             <a class="nounderline"
-                                               href="{{ route('filmDetails', ['id'=>$post->getId()]) }}">
+                                               href="{{ route('filmDetails', ['id'=>$post['id']]) }}">
                                                 <header class="post-header pt-3">
-                                                    <h2 class="h6 font-weight-normal text-muted">{{$post->getDescription()}}</h2>
+                                                    <h2 class="h6 font-weight-normal text-muted">{{$post['description']}}</h2>
                                                 </header>
                                             </a>
                                             <footer class="post-footer d-flex align-items-center pb-3">
                                         <span class="author d-flex align-items-center flex-wrap">
                                             <?php $time = "2015-06-22 20:00:03" ?>
                                             <div class="title pr-2"><span
-                                                    class="text-muted">{{$post->getUser()->getName()}}</span></div>
+                                                    class="text-muted">{{$post['user']['name']}}</span></div>
                                         </span>
                                                 <a class="nounderline"
-                                                   href="{{ route('filmDetails', ['id'=>$post->getId()]) }}">
+                                                   href="{{ route('filmDetails', ['id'=>$post['id']]) }}">
                                                     <div class="date pr-2"><i
-                                                            class="icon-clock pr-1"></i> {{\Carbon\Carbon::parse($post->getCreatedAt())->diffForHumans()}}
+                                                            class="icon-clock pr-1"></i> {{\Carbon\Carbon::parse($post['createdAt'])->diffForHumans()}}
                                                     </div>
                                                     <div class="comments"><i
-                                                            class="far fa-comment pr-1"></i>{{$post->getCommentCount()}}
+                                                            class="far fa-comment pr-1"></i>{{$post['commentCount']}}
                                                     </div>
                                                 </a>
                                             </footer>

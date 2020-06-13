@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataModel\Manager\DataManager;
 use App\DataModel\Manager\FilmManager;
 use Illuminate\Support\Facades\Input;
 
@@ -21,10 +22,11 @@ class FilmController extends Controller
             $offset = 1;
 
         $film = (new FilmManager())->getAllFilms($offset, $limit);
+        $films = (new DataManager())->convertObjectListToArrayList($film);
         $countFilms = (new FilmManager())->filmCount();
-        //var_dump($countFilms, $film); die();
+        //var_dump($films); die();
 
-        return view('owner.film.showFilm')->with(['films'=>$film, 'countFilms' => $countFilms, 'limit' => $limit]);
+        return view('owner.film.showFilm')->with(['films'=>$films, 'countFilms' => $countFilms, 'limit' => $limit]);
     }
 
     public function filmWithComments($id)
