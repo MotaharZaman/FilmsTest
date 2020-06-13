@@ -32,32 +32,28 @@
 
                                     @if(count($films) > 0)
                                         @foreach($films as $post)
-                                            <a class="nounderline"
-                                               href="{{ route('filmDetails', ['id'=>$post['id']]) }}">
+                                            <a id="{{$post['id']}}" name="{{$post['name']}}" class="nounderline" href="{{url('/films',['id'=>$post['id']])}}" >
                                                 <header class="post-header pt-3">
                                                     <h2 class="h6 font-weight-normal text-muted">{{$post['description']}}</h2>
                                                 </header>
                                             </a>
+                                            <input id="filmId"  style="visibility: hidden">
                                             <footer class="post-footer d-flex align-items-center pb-3">
-                                        <span class="author d-flex align-items-center flex-wrap">
-                                            <?php $time = "2015-06-22 20:00:03" ?>
-                                            <div class="title pr-2"><span
-                                                    class="text-muted">{{$post['user']['name']}}</span></div>
-                                        </span>
-                                                <a class="nounderline"
-                                                   href="{{ route('filmDetails', ['id'=>$post['id']]) }}">
+                                                <span class="author d-flex align-items-center flex-wrap">
+                                                    <?php $time = "2015-06-22 20:00:03" ?>
+                                                    <div class="title pr-2"><span
+                                                            class="text-muted">{{$post['user']['name']}}</span></div>
                                                     <div class="date pr-2"><i
                                                             class="icon-clock pr-1"></i> {{\Carbon\Carbon::parse($post['createdAt'])->diffForHumans()}}
                                                     </div>
                                                     <div class="comments"><i
                                                             class="far fa-comment pr-1"></i>{{$post['commentCount']}}
                                                     </div>
-                                                </a>
+                                                </span>
                                             </footer>
 
                                         @endforeach
 
-                                        <br> <br> <br>
                                         <div>
                                             @if(count($pagelink) > 1)
                                                 @for($i = 0; $i < count($pagelink); $i++)
@@ -87,33 +83,21 @@
 @section('JavaScript')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
-        //image removing option at image upload time....
-        $(document).ready(function () {
-            if (window.File && window.FileList && window.FileReader) {
-                $("#files").on("change", function (e) {
-                    var files = e.target.files,
-                        filesLength = files.length;
-                    for (var i = 0; i < filesLength; i++) {
-                        var f = files[i]
-                        var fileReader = new FileReader();
-                        fileReader.onload = (function (e) {
-                            var file = e.target;
-                            $("<span class=\"pip file1\">" +
-                                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                                "<br/><span class=\"remove\"><i class=\"far fa-trash-alt\"></i></span>" +
-                                "</span>").insertAfter("#files");
-                            $(".remove").click(function () {
-                                $(this).parent(".pip").remove();
-                            });
-                        });
-                        fileReader.readAsDataURL(f);
-                    }
-                });
-            } else {
-                alert("Your browser doesn't support to File API")
-            }
-        });
+        function details(id, name) {
+
+            $.ajax({
+                type: "get",
+                url: "/films/"+name,
+                dataType:"json",
+                data: {'id':id},
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+           // $.post("/films/"+name,{'id':id}).done(function (data) {console.log("/films/"+name);});
+        }
     </script>
 @stop
 

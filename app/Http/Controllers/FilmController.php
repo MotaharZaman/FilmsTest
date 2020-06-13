@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataModel\Manager\DataManager;
 use App\DataModel\Manager\FilmManager;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 class FilmController extends Controller
@@ -13,7 +14,7 @@ class FilmController extends Controller
         return view('owner.film.create');
     }
 
-    public function showFilms()
+    public function showFilms(Request $request)
     {
         $limit = 3;
         if(Input::get('page'))
@@ -24,7 +25,6 @@ class FilmController extends Controller
         $film = (new FilmManager())->getAllFilms($offset, $limit);
         $films = (new DataManager())->convertObjectListToArrayList($film);
         $countFilms = (new FilmManager())->filmCount();
-        //var_dump($films); die();
 
         return view('owner.film.showFilm')->with(['films'=>$films, 'countFilms' => $countFilms, 'limit' => $limit]);
     }
@@ -32,6 +32,12 @@ class FilmController extends Controller
     public function filmWithComments($id)
     {
         $film = (new FilmManager())->getFilmById($id);
-        return view('owner.film.showComment')->with(['film'=>$film]);
+
+        if(isset($film) && count($film) > 0){
+            $filmWithComment = (new DataManager())->convertObjectListToArrayList($film);
+            return view('owner.film.showComment')->with(['film'=>$filmWithComment]);
+        }
+        else
+            return view('owner.film.showComment')->with(['film'=>null]);
     }
 }

@@ -245,11 +245,11 @@ class Film
     }
 
     /**
-     * @param array $commentList
+     * @param Comment $comment
      */
-    public function setCommentList($commentList): void
+    public function addCommentList(Comment $comment): void
     {
-        $this->commentList[] = $commentList;
+        $this->commentList[] = $comment;
     }
 
     /**
