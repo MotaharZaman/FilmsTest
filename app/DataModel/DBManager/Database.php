@@ -22,7 +22,6 @@ class Database {
             $result = DB::select($query,$parameter);
             return $result;
         } catch(\Illuminate\Database\QueryException $ex){
-            var_dump($ex->getMessage());die;
             return null;
         }
     }

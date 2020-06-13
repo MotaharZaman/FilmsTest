@@ -17,8 +17,8 @@ Auth::routes();
 //Route::group([ 'middleware' => 'ForceSSL'], function() {
     Route::get('/', 'FilmController@showFilms')->name('home')->middleware('auth');
     Route::prefix('/films')->group(function () {
-        Route::get('/', 'FilmController@showFilms')->name('showPosts')->middleware('auth');
+        Route::get('/', 'FilmController@showFilms')->name('showFilms')->middleware('auth');
         Route::get('/create', 'FilmController@create')->name('create')->middleware('auth');
-        Route::get('/films/{name}', 'FilmController@filmWithComments')->name('filmDetails')->middleware('auth');
+        Route::get('/{name}', 'FilmController@filmWithComments')->name('filmDetails')->middleware('auth');
     });
 //});
