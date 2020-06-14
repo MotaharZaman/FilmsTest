@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 @section('title','Film Details')
 @section('content')
 
@@ -127,7 +127,7 @@
                                 <div class="text-inner d-flex align-items-center">
                                     <div class="content">
                                         <header class="post-header pt-3">
-                                            <h2 class="h6 font-weight-light dark-font">Name: {{$films[0]['name']}} </h2>
+                                            <h4 class="h6 font-weight-light dark-font">Name: {{$films[0]['name']}} </h4>
                                             <p>Description: {{$films[0]['description']}} </p>
                                             <p>Release: {{$films[0]['release']}} </p>
                                             <p>Rating: {{$films[0]['rating']}} </p>
@@ -142,17 +142,17 @@
                                         <footer class="post-footer d-flex align-items-center pt-2 pb-3">
                                             <span class="author d-flex align-items-center flex-wrap">
                                                 <div class="title pr-2">
-                                                    <span class="text-muted">{{$films[0]['user']['name']}}</span>
+                                                    <i class="fa fa-user" aria-hidden="true"></i> {{$films[0]['user']['name']}}
                                                 </div>
                                             </span>
                                             <span>
                                                 <div class="date pr-2">
-                                                    <i class="icon-clock pr-1"></i>{{\Carbon\Carbon::parse($films[0]['createdAt'])->diffForHumans()}}
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i> {{\Carbon\Carbon::parse($films[0]['createdAt'])->diffForHumans()}}
                                                 </div>
                                             </span>
                                             <span>
                                                 <div class="comments">
-                                                    <i class="far fa-comment pr-1"></i>{{$films[0]['commentCount']}}
+                                                    <i class="fa fa-comments" aria-hidden="true"></i> {{$films[0]['commentCount']}}
                                                 </div>
                                             </span>
                                         </footer>
@@ -176,10 +176,10 @@
                                         <div class="row">
                                             <div class="title pb-3">
                                                 <span class="pl-3">
-                                                    <strong>{{$comment['user']['name']}}</strong>
+                                                    <i class="fa fa-user" aria-hidden="true"></i> <strong> {{$comment['user']['name']}}</strong>
                                                 </span>
                                                 <span class="date pl-3">
-                                                    {{\Carbon\Carbon::parse($comment['createdAt'])->diffForHumans()}}
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i> {{\Carbon\Carbon::parse($comment['createdAt'])->diffForHumans()}}
                                                 </span>
                                             </div>
                                         </div>

@@ -145,4 +145,24 @@ class FilmManager
 
         return (new Database())->executeQueryInsert($queryString, $queryParameter);
     }
+
+    public function storeFilmGenre(Film $film, $id)
+    {
+        $values = "";
+        $genre = $film->getGenre();
+        $length = count($film->getGenre());
+        if($film->getGenre() != null && $length > 0){
+            for($i = 0; $i < $length; $i++){
+                if($i > 0 && $i < $length){
+                    $values .= ", ";
+                }
+                $values .= "(".$id.", ".$genre[$i].")";
+            }
+        }
+
+        $queryString = "INSERT INTO film_genre(film_id, genre) VALUES ".$values;
+        $queryParameter = array();
+
+        return (new Database())->executeQueryInsert($queryString, $queryParameter);
+    }
 }

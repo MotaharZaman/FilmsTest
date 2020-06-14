@@ -69,6 +69,10 @@ class FilmController extends Controller
         $film->setCountry($data['country']);
         $film->setStatus(1);
 
+        for($i = 0; $i < count($data['genre']); $i++){
+            $film->addGenre((int)$data['genre'][$i]);
+        }
+
         $file = $request->file('photo');
         $path = public_path('filmImage/');
         if (!file_exists($path)) {
@@ -80,6 +84,8 @@ class FilmController extends Controller
         $film->setPhoto($imgName);
 
         $id = (new FilmManager())->storeFilmData($film);
+        (new FilmManager())->storeFilmGenre($film, $id);
+
         return redirect()->route('showFilms');
     }
 }
