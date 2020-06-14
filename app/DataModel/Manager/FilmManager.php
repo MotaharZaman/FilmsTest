@@ -18,7 +18,7 @@ class FilmManager
     public function getAllFilmsData($offset, $limit)
     {
         $startFrom = ($offset-1)*$limit;
-        $queryString = "SELECT f.id, f.name AS filmName, f.description, f.release, f.date, f.rating, f.ticket, f.price, f.country,
+        $queryString = "SELECT f.id, f.name AS filmName, f.description, f.release, f.rating, f.ticket, f.price, f.country,
                         f.photo, f.created_at, u.id AS userId, u.name AS userName, email, s.commentCount FROM film f
                         INNER JOIN users u ON u.id = f.user_id LEFT JOIN
                         (
@@ -47,7 +47,6 @@ class FilmManager
                     $film->setName($tmpList[$i]["filmName"]);
                     $film->setDescription($tmpList[$i]["description"]);
                     $film->setRelease($tmpList[$i]["release"]);
-                    $film->setDate($tmpList[$i]["date"]);
                     $film->setRating($tmpList[$i]["rating"]);
                     $film->setTicket($tmpList[$i]["ticket"]);
                     $film->setPrice($tmpList[$i]["price"]);
@@ -87,7 +86,7 @@ class FilmManager
 
     public function getFilmDataById($id)
     {
-        $queryString = "SELECT f.id, f.name AS filmName, f.description, f.release, f.date, f.rating, f.ticket, f.price, f.country,
+        $queryString = "SELECT f.id, f.name AS filmName, f.description, f.release, f.rating, f.ticket, f.price, f.country,
                         f.photo, f.created_at, u.id AS userId, u.name AS userName, email, g.genre, s.commentCount FROM film f
                         INNER JOIN users u ON u.id = f.user_id LEFT JOIN film_genre g ON g.film_id = f.id LEFT JOIN
                         (
@@ -126,5 +125,23 @@ class FilmManager
             }
         }
         return $filmData;
+    }
+
+    public function storeCommentData($comment, $filmId, $userId)
+    {
+        $queryString = "INSERT INTO comment(film_id, user_id, comment, status) VALUES (?, ?, ?, ?)";
+        $queryParameter = array($filmId, $userId, $comment, 1);
+
+        return (new Database())->executeQueryInsert($queryString, $queryParameter);
+    }
+
+    public function storeFilmData(Film $film)
+    {
+        $queryString = "INSERT INTO film(user_id, name, description, `release`, rating, ticket, price, country, photo, status)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $queryParameter = array($film->getUser()->getId(), $film->getName(), $film->getDescription(), $film->getRelease(),
+            $film->getRating(), $film->getTicket(), $film->getPrice(), $film->getCountry(), $film->getPhoto(), 1);
+
+        return (new Database())->executeQueryInsert($queryString, $queryParameter);
     }
 }

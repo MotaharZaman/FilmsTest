@@ -9,7 +9,6 @@ class Film
     private $name;
     private $description;
     private $release;
-    private $date;
     private $rating;
     private $ticket;
     private $price;
@@ -90,22 +89,6 @@ class Film
     public function setRelease($release): void
     {
         $this->release = $release;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param mixed $date
-     */
-    public function setDate($date): void
-    {
-        $this->date = $date;
     }
 
     /**
@@ -283,6 +266,4 @@ class Film
     {
         $this->commentCount = $commentCount;
     }
-
-
 }
