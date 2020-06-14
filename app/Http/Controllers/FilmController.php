@@ -37,7 +37,7 @@ class FilmController extends Controller
 
         if(isset($film) && count($film) > 0){
             $filmWithComment = (new DataManager())->convertObjectListToArrayList($film);
-            return view('owner.film.showComment')->with(['film'=>$filmWithComment]);
+            return view('owner.film.showComment')->with(['films'=>$filmWithComment]);
         }
         else
             return view('owner.film.showComment')->with(['films'=>null]);

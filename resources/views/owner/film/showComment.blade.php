@@ -3,12 +3,11 @@
 @section('content')
 
     <?php
-    if (Auth::user()) {
-        $id = Auth::user()->id;
-    } else {
-        $id = NULL;
-    }
-
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+        } else {
+            $id = NULL;
+        }
     ?>
 
     <style>
@@ -130,9 +129,14 @@
                                         <header class="post-header pt-3">
                                             <h2 class="h6 font-weight-light dark-font">Name: {{$films[0]['name']}} </h2>
                                             <p>Description: {{$films[0]['description']}} </p>
+                                            <p>Release: {{$films[0]['release']}} </p>
+                                            <p>Rating: {{$films[0]['rating']}} </p>
+                                            <p>Ticket: {{$films[0]['ticket']}} </p>
+                                            <p>Price: {{$films[0]['price']}} </p>
+                                            <p>Country: {{$films[0]['country']}} </p>
+                                            <p>Date: {{$films[0]['createdAt']}} </p>
                                             @if($films[0]['photo'] != NULL)
-                                                {{--<img class="myImg" height="100px" width="auto">--}}
-                                                {{--src="{{asset('/post/'.$post->getUser()->getId().'/'.$post['photo'])}}--}}
+                                                <img class="myImg" height="100px" width="auto" src="{{asset('/filmImage/'.$films[0]['photo'])}}">
                                             @endif
                                         </header>
                                         <footer class="post-footer d-flex align-items-center pt-2 pb-3">
