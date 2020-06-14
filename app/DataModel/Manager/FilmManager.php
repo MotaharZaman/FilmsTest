@@ -87,9 +87,9 @@ class FilmManager
     public function getFilmDataById($id)
     {
         $queryString = "SELECT f.id, f.name AS filmName, f.description, f.release, f.rating, f.ticket, f.price, f.country, f.photo,
-                        DATE_FORMAT(f.created_at, '%M %d, %Y') AS created_at, u.id AS userId, u.name AS userName, email, g.genre,
-                        s.commentCount FROM film f INNER JOIN users u ON u.id = f.user_id LEFT JOIN film_genre g ON g.film_id = f.id
-                        LEFT JOIN
+                        DATE_FORMAT(f.created_at, '%M %d, %Y') AS created_at, u.id AS userId, u.name AS userName, email, gl.name AS genre,
+                        s.commentCount FROM film f INNER JOIN users u ON u.id = f.user_id LEFT JOIN film_genre fg ON fg.film_id = f.id
+                        LEFT JOIN genre_list gl ON gl.id = fg.genre LEFT JOIN
                         (
                             SELECT COUNT(c.id) AS commentCount, c.film_id FROM comment c GROUP BY c.film_id
                         ) AS s

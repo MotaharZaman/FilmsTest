@@ -127,14 +127,15 @@
                                 <div class="text-inner d-flex align-items-center">
                                     <div class="content">
                                         <header class="post-header pt-3">
-                                            <h4 class="h6 font-weight-light dark-font">Name: {{$films[0]['name']}} </h4>
-                                            <p>Description: {{$films[0]['description']}} </p>
-                                            <p>Release: {{$films[0]['release']}} </p>
-                                            <p>Rating: {{$films[0]['rating']}} </p>
-                                            <p>Ticket: {{$films[0]['ticket']}} </p>
-                                            <p>Price: {{$films[0]['price']}} </p>
-                                            <p>Country: {{$films[0]['country']}} </p>
-                                            <p>Date: {{$films[0]['createdAt']}} </p>
+                                            <h5><b>Name:</b> {{$films[0]['name']}} </h5>
+                                            <p><b>Description:</b> {{$films[0]['description']}} </p>
+                                            <p><b>Release:</b> {{$films[0]['release']}} </p>
+                                            <p><b>Rating:</b> {{$films[0]['rating']}} </p>
+                                            <p><b>Ticket:</b> {{$films[0]['ticket']}} </p>
+                                            <p><b>Price:</b> {{$films[0]['price']}} </p>
+                                            <p><b>Country:</b> {{$films[0]['country']}} </p>
+                                            <p><b>Date:</b> {{$films[0]['createdAt']}} </p>
+                                            <p><b>Genre:</b> @foreach($films[0]['genre'] as $filmGenre) {{$filmGenre}}, @endforeach</p>
                                             @if($films[0]['photo'] != NULL)
                                                 <img class="myImg" height="100px" width="auto" src="{{asset('/filmImage/'.$films[0]['photo'])}}">
                                             @endif
