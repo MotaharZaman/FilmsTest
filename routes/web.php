@@ -15,10 +15,14 @@
 Auth::routes();
 
 //Route::group([ 'middleware' => 'ForceSSL'], function() {
-    Route::get('/', 'FilmController@showFilms')->name('home')->middleware('auth');
+Route::get('/', function () {
+    return redirect('/films');
+});
     Route::prefix('/films')->group(function () {
         Route::get('/', 'FilmController@showFilms')->name('showFilms')->middleware('auth');
         Route::get('/create', 'FilmController@create')->name('create')->middleware('auth');
         Route::get('/{id}', 'FilmController@filmWithComments')->name('filmDetails')->middleware('auth');
+        Route::post('/comment', 'FilmController@storeComment')->name('storeComment')->middleware('auth');
+        Route::post('/film', 'FilmController@storeFilm')->name('storeFilm')->middleware('auth');
     });
 //});
