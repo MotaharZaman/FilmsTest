@@ -423,7 +423,7 @@ div[class*="-btn"] {
   .navbar {
     height: 50px !important;
   }
-  
+
 }
 @media (max-width:991px){
   .navbar {
@@ -1353,7 +1353,7 @@ main.posts-listing .post-footer {
 }
 
 .blog-post .post-footer {
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .blog-post .post-body {
@@ -1425,7 +1425,7 @@ main.posts-listing .post-footer {
 }
 
 .blog-post .post-comments {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .blog-post .post-comments span.no-of-comments {
@@ -1436,7 +1436,7 @@ main.posts-listing .post-footer {
 }
 
 .blog-post .post-comments header {
-  margin-bottom: 40px;
+  margin-bottom: 5px;
 }
 
 .blog-post .post-comments .comment:last-of-type .comment-body {

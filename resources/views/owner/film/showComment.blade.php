@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title','Post and Comments')
+@section('title','Film Details')
 @section('content')
 
     <?php
@@ -126,64 +126,57 @@
                         <div class="row d-flex align-items-stretch pl-3">
                             <div class="text col-lg-12">
                                 <div class="text-inner d-flex align-items-center">
-
-                                    @foreach($posts as $post)
-                                        <?php
-                                        $count = 0;
-                                        foreach ($post->getCommentList() as $comment)
-                                            $count++;
-                                        ?>
-
-                                        <div class="content">
-                                            <header class="post-header pt-3">
-                                                <h2 class="h6 font-weight-light dark-font">{{$post->getPostBody()}}</h2>
-                                                @if($post->getPostImageList() != NULL)
-                                                    @foreach($post->getPostImageList() as $index=>$imageList)
-                                                        <img class="myImg" height="100px" width="auto"
-                                                             src="{{asset('/post/'.$post->getUser()->getId().'/'.$imageList->getImageName())}}">
-                                                    @endforeach
-                                                @endif
-                                            </header>
-                                            <footer class="post-footer d-flex align-items-center pt-2 pb-3"><span
-                                                    class="author d-flex align-items-center flex-wrap">
-
-                            <div class="title pr-2"><span
-                                    class="text-muted">{{$post->getUser()->getName()}}</span></div></span>
-                                                <div class="date pr-2"><i
-                                                        class="icon-clock pr-1"></i>{{\Carbon\Carbon::parse($post->getUpdatedAt())->diffForHumans()}}
+                                    <div class="content">
+                                        <header class="post-header pt-3">
+                                            <h2 class="h6 font-weight-light dark-font">Name: {{$films[0]['name']}} </h2>
+                                            <p>Description: {{$films[0]['description']}} </p>
+                                            @if($films[0]['photo'] != NULL)
+                                                {{--<img class="myImg" height="100px" width="auto">--}}
+                                                {{--src="{{asset('/post/'.$post->getUser()->getId().'/'.$post['photo'])}}--}}
+                                            @endif
+                                        </header>
+                                        <footer class="post-footer d-flex align-items-center pt-2 pb-3">
+                                            <span class="author d-flex align-items-center flex-wrap">
+                                                <div class="title pr-2">
+                                                    <span class="text-muted">{{$films[0]['user']['name']}}</span>
                                                 </div>
-                                                <div class="comments"><i class="far fa-comment pr-1"></i>{{$count}}
+                                            </span>
+                                            <span>
+                                                <div class="date pr-2">
+                                                    <i class="icon-clock pr-1"></i>{{\Carbon\Carbon::parse($films[0]['createdAt'])->diffForHumans()}}
                                                 </div>
-                                            </footer>
-
-
-                                        </div>
-                                    @endforeach
+                                            </span>
+                                            <span>
+                                                <div class="comments">
+                                                    <i class="far fa-comment pr-1"></i>{{$films[0]['commentCount']}}
+                                                </div>
+                                            </span>
+                                        </footer>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
                 <div class="blog-post container pl-3">
                     <div class="post-comments col-lg-11 pl-0">
-
-                        @if($post->getCommentList() != NULL)
-                            @foreach($post->getCommentList() as $comment)
-                                <div class="comment pt-3">
-                                    <p>{{$comment->getCommentBody()}}</p>
-                                    @if($comment->getCommentImage() != NULL)
-                                        @foreach($comment->getCommentImage() as $commentImageList)
-                                            <img class="myImg" height="100px" width="auto"
-                                                 src="{{asset('/comment/'.$comment->getUser()->getId().'/'.$commentImageList->getImageName())}}">
-                                        @endforeach
-                                    @endif
+                        @if($films[0]['commentList'] != NULL)
+                            <h6>Comment Section</h6>
+                            @foreach($films[0]['commentList'] as $comment)
+                                <div class="comment post-comments pt-3">
+                                    <header class="post-header pt-3">
+                                        <p>{{$comment['body']}}</p>
+                                    </header>
                                     <footer class="post-footer d-flex align-items-center">
                                         <div class="row">
                                             <div class="title pb-3">
-                                                <span class="pl-3"><strong>{{$comment->getUser()->getName()}}</strong></span><span
-                                                    class="date pl-3">{{\Carbon\Carbon::parse($comment->getUpdatedAt())->diffForHumans()}}</span>
+                                                <span class="pl-3">
+                                                    <strong>{{$comment['user']['name']}}</strong>
+                                                </span>
+                                                <span class="date pl-3">
+                                                    {{\Carbon\Carbon::parse($comment['createdAt'])->diffForHumans()}}
+                                                </span>
                                             </div>
                                         </div>
                                     </footer>
@@ -196,7 +189,7 @@
                 <div class="container pt-5 mt-5 pl-3">
                     <div class="row pl-3">
                         <?php
-                        if(Auth::user()){
+                            if(Auth::user()){
                         ?>
                         <div class="row col-md-12 pl-0">
                             <div class="text col-lg-12 pt-3">
@@ -209,28 +202,14 @@
                                             <p style="color:red;">{{ $errors->first('comment_body') }}</p>
                                         @endif
                                     </div>
-                                    <form method="post" action="{{route('comments.index')}}"
-                                          enctype="multipart/form-data" class="commenting-form">
+                                    <form method="post" action="{{route('storeComment')}}" enctype="multipart/form-data" class="commenting-form">
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <textarea id="usercomment" placeholder="Type your comment"
-                                                          class="form-control"
-                                                          name="comment_body"
-                                                          required>{{ old('comment_body') }}</textarea>
-                                            </div>
-                                            <div class="file btn btn-upload-custom row text-left col-8 col-md-6 col-lg-4 pl-3 pt-0">
-                                                @foreach ($errors->get('images.*') as $message)
-                                                    <strong style="color:red">{{ $message[0] }}</strong>
-                                                @endforeach
-                                                <br>
-                                                <i class="fas fa-paperclip pr-3 pl-3"></i>Attach File
-                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                                                <input type="file" name="images[]" class="form-control" id="files"
-                                                       multiple>
-                                                <output id="list"></output>
+                                                <textarea id="usercomment" placeholder="Type your comment" class="form-control"
+                                                          name="comment_body" required>{{ old('comment_body') }}</textarea>
                                             </div>
 
-                                            <input type="hidden" name="post_id" value="{{$posts[0]->getId()}}"/>
+                                            <input type="hidden" name="film_id" value="{{$films[0]['id']}}"/>
                                             <input type="hidden" name="user_id" value="{{$id}}"/>
                                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 
@@ -250,149 +229,14 @@
                         ?>
                     </div>
                 </div>
+
             </main>
-
-            <aside class="col-lg-3 pt-4">
-                <!-- Widget [Search Bar Widget]-->
-                <div class="col-lg-12 left-border">
-                    <div class="widget latest-posts">
-                        <header>
-                            <h3 class="h6 text-muted pb-3 mt-4">Get Help</h3>
-                        </header>
-                        <div class="blog-posts">
-                            <?php
-                            if($type === 'quickly-retail'){
-                            ?>
-                            <a href="<?php echo '/retail-instructions#five-tab';?>">
-                                <div class="item d-flex align-items-center">
-                                    <div class="title text-muted font-small"><strong>Setting Up the Catalog</strong>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="<?php echo '/retail-instructions#eight-tab';?>">
-                                <div class="item d-flex align-items-center">
-                                    <div class="title text-muted font-small"><strong>How to Take Orders</strong>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="<?php echo '/retail-instructions#ten-tab';?>">
-                                <div class="item d-flex align-items-center">
-                                    <div class="title text-muted font-small"><strong>Setting Up the Inventory</strong>
-
-                                    </div>
-                                </div>
-                            </a>
-                            <?php
-                            }
-                            else{
-                            ?>
-                            <a href="<?php echo '/restaurant-instructions#four-tab';?>">
-                                <div class="item d-flex align-items-center">
-                                    <div class="title text-muted font-small"><strong>Setting Up the Business
-                                            Details</strong>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="<?php echo '/restaurant-instructions#seven-tab';?>">
-                                <div class="item d-flex align-items-center">
-                                    <div class="title text-muted font-small"><strong>Setting Up the Promotions</strong>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="<?php echo '/restaurant-instructions#six-tab';?>">
-                                <div class="item d-flex align-items-center">
-                                    <div class="title text-muted font-small"><strong>Setting Up the Inventory</strong>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-
-                    <div class="widget latest-posts pt-3">
-                        <header>
-                            <h3 class="h6 text-muted pb-3">Most Discussed</h3>
-                        </header>
-                        <div class="blog-posts">
-                            <?php
-                            if(isset($mostCmnt) && count($mostCmnt) > 0){
-                            for($i = 0; $i < count($mostCmnt); $i++){
-                            if ($mostCmnt[$i]->getForumType() == 0)
-                                $name = "quickly-retail";
-                            if ($mostCmnt[$i]->getForumType() == 1)
-                                $name = "quickly-restaurant";
-                            ?>
-                            <a class="nounderline"
-                               href="{{ route('showAll', ['id'=>$mostCmnt[$i]->getId(), 'type'=>$name]) }}">
-                                <div class="item d-flex align-items-center">
-
-                                    <div class="title text-muted font-small">
-                                        <strong>{{$mostCmnt[$i] -> getPostBody()}}</strong>
-                                    </div>
-                                </div>
-                            </a>
-                            <?php
-                            }
-                            }
-                            ?>
-                        </div>
-                    </div>
-
-                    <div class="container pt-3">
-                        <div class="row">
-                            <div class="col-xl-12  pr-0 pl-0">
-                                <h6 class="mb-4 text-muted font-weight-normal">Still Confused?</h6>
-                            </div>
-                            <a href="{{route('knock')}}">
-                                <div class="col-md-12  pr-0 pl-0">
-                                    <div class="">
-                                        <button type="submit"
-                                                class="btn btn-block btn-sm btn-primary border-radius-0 btn-knock-custom">
-                                            Knock US!
-                                        </button>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </aside>
         </div>
     </div>
 @stop
 
 @section('JavaScript')
     <script>
-        //preview and remove image when upload........
-        $(document).ready(function () {
-            if (window.File && window.FileList && window.FileReader) {
-                $("#files").on("change", function (e) {
-                    var files = e.target.files,
-                        filesLength = files.length;
-                    for (var i = 0; i < filesLength; i++) {
-                        var f = files[i]
-                        var fileReader = new FileReader();
-                        fileReader.onload = (function (e) {
-                            var file = e.target;
-                            $("<span class=\"pip\">" +
-                                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                                "<br/><span class=\"remove\"><i class=\"far fa-trash-alt\"></i></span>" +
-                                "</span>").insertAfter("#files");
-                            $(".remove").click(function () {
-                                $(this).parent(".pip").remove();
-                            });
-                        });
-                        fileReader.readAsDataURL(f);
-                    }
-                });
-            } else {
-                alert("Your browser doesn't support to File API")
-            }
-        });
-
-
         // Get the modal for enlarge clicked image
         var modal = document.getElementById("myModal");
         var i;
