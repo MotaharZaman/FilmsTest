@@ -4,10 +4,10 @@
     <div class="container">
         <div class="row">
             <!-- Latest Posts -->
-            <main class="posts-listing col-lg-9">
+            <main class="posts-listing col-lg-11">
                 <div class="container">
                     <div class="row">
-                        <form method="post" action="{{route('storeFilm')}}" enctype="multipart/form-data">
+                        <form class="col-lg-11" method="post" action="{{route('storeFilm')}}" enctype="multipart/form-data">
                             <div class="row">
                                 <label for="name">Film Name:</label>
                                 <input id="film_Name" name="film_Name" required>{{ old('film_Name') }}</input>
@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="input-group control-group increment" >
                                     <label for="photo">Photo:</label>
-                                    <input id="photo" type="file" name="photo" class="form-control" required>
+                                    <input class="col-lg-5" id="photo" type="file" name="photo" class="form-control" required>
                                 </div>
                                 @if ($errors->any())
                                     @foreach($errors->all() as $error)
@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="form-group col-md-4">
-                                    <button type="submit" class="btn btn-success" style="margin-left:38px">Submit</button>
+                                    <button type="submit" class="btn" style="margin-left:38px">Submit</button>
                                 </div>
                             </div>
                         </form>

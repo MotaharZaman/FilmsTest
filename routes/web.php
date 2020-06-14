@@ -19,9 +19,9 @@ Route::get('/', function () {
     return redirect('/films');
 });
     Route::prefix('/films')->group(function () {
-        Route::get('/', 'FilmController@showFilms')->name('showFilms')->middleware('auth');
+        Route::get('/', 'FilmController@showFilms')->name('showFilms');
         Route::get('/create', 'FilmController@create')->name('create')->middleware('auth');
-        Route::get('/{id}', 'FilmController@filmWithComments')->name('filmDetails')->middleware('auth');
+        Route::get('/{id}', 'FilmController@filmWithComments')->name('filmDetails');
         Route::post('/comment', 'FilmController@storeComment')->name('storeComment')->middleware('auth');
         Route::post('/film', 'FilmController@storeFilm')->name('storeFilm')->middleware('auth');
     });
