@@ -10,17 +10,17 @@
                         <form class="col-lg-11" method="post" action="{{route('storeFilm')}}" enctype="multipart/form-data">
                             <div class="row">
                                 <label for="name">Film Name:</label>
-                                <input id="film_Name" name="film_Name" required>{{ old('film_Name') }}</input>
+                                <input type="text" id="film_Name" name="film_Name" required>{{ old('film_Name') }}</input>
                                 @if ($errors->has('film_Name')) <p style="color:red;">{{ $errors->first('film_Name') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="description">Description:</label>
-                                <input id="description" name="description" required>{{ old('description') }}</input>
+                                <input type="text" id="description" name="description" required>{{ old('description') }}</input>
                                 @if ($errors->has('description')) <p style="color:red;">{{ $errors->first('description') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="release">Release:</label>
-                                <input id="release" name="release" required>{{ old('release') }}</input>
+                                <input type="date" id="release" name="release" required>{{ old('release') }}</input>
                                 @if ($errors->has('release')) <p style="color:red;">{{ $errors->first('release') }}</p> @endif
                             </div>
                             <div class="row">
@@ -50,17 +50,17 @@
                             </div>
                             <div class="row">
                                 <label for="ticket">Ticket:</label>
-                                <input id="ticket" name="ticket" required>{{ old('ticket') }}</input>
+                                <input type="text" id="ticket" name="ticket" required>{{ old('ticket') }}</input>
                                 @if ($errors->has('ticket')) <p style="color:red;">{{ $errors->first('ticket') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="price">Price:</label>
-                                <input id="price" name="price" required>{{ old('price') }}</input>
+                                <input type="number" id="price" name="price" required>{{ old('price') }}</input>
                                 @if ($errors->has('price')) <p style="color:red;">{{ $errors->first('price') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="country">Country:</label>
-                                <input id="country" name="country" required>{{ old('country') }}</input>
+                                <input type="text" id="country" name="country" required>{{ old('country') }}</input>
                                 @if ($errors->has('country')) <p style="color:red;">{{ $errors->first('country') }}</p> @endif
                             </div>
                             <input id="userId" name="userId" type="hidden" value="{{Auth::user()->id}}">
