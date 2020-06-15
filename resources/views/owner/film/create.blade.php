@@ -28,7 +28,7 @@
                                 <select name="rating" id="rating">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="3" selected>3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
@@ -44,7 +44,7 @@
                                     <input type='checkbox' name='genre[]' value= 6 >Fantasy
                                     <input type='checkbox' name='genre[]' value= 7 >Historical
                                     <input type='checkbox' name='genre[]' value= 8 >Horror
-                                    <input type='checkbox' name='genre[]' value= 9 >Romantic
+                                    <input type='checkbox' name='genre[]' value= 9 checked>Romantic
                                 </fieldset>
                                 @if ($errors->has('genre')) <p style="color:red;">{{ $errors->first('genre') }}</p> @endif
                             </div>
