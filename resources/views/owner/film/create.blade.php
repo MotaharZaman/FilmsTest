@@ -10,17 +10,17 @@
                         <form class="col-lg-11" method="post" action="{{route('storeFilm')}}" enctype="multipart/form-data">
                             <div class="row">
                                 <label for="name">Film Name:</label>
-                                <input type="text" id="film_Name" name="film_Name" required>{{ old('film_Name') }}</input>
+                                <input type="text" id="film_Name" name="film_Name"placeholder="Film Name" value="{{ old('film_Name') }}" required>
                                 @if ($errors->has('film_Name')) <p style="color:red;">{{ $errors->first('film_Name') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="description">Description:</label>
-                                <input type="text" id="description" name="description" required>{{ old('description') }}</input>
+                                <input type="text" id="description" name="description" placeholder="Description" value="{{ old('description') }}" required>
                                 @if ($errors->has('description')) <p style="color:red;">{{ $errors->first('description') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="release">Release:</label>
-                                <input type="date" id="release" name="release" required>{{ old('release') }}</input>
+                                <input type="date" id="release" name="release" value="{{ old('release') }}" required>
                                 @if ($errors->has('release')) <p style="color:red;">{{ $errors->first('release') }}</p> @endif
                             </div>
                             <div class="row">
@@ -50,32 +50,28 @@
                             </div>
                             <div class="row">
                                 <label for="ticket">Ticket:</label>
-                                <input type="text" id="ticket" name="ticket" required>{{ old('ticket') }}</input>
+                                <input type="text" id="ticket" name="ticket" placeholder="Ticket" value="{{ old('ticket') }}" required>
                                 @if ($errors->has('ticket')) <p style="color:red;">{{ $errors->first('ticket') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="price">Price:</label>
-                                <input type="number" id="price" name="price" required>{{ old('price') }}</input>
+                                <input type="number" id="price" name="price" placeholder="Price" value="{{ old('price') }}" required>
                                 @if ($errors->has('price')) <p style="color:red;">{{ $errors->first('price') }}</p> @endif
                             </div>
                             <div class="row">
                                 <label for="country">Country:</label>
-                                <input type="text" id="country" name="country" required>{{ old('country') }}</input>
+                                <input type="text" id="country" name="country" placeholder="Country" value="{{ old('country') }}" required>
                                 @if ($errors->has('country')) <p style="color:red;">{{ $errors->first('country') }}</p> @endif
                             </div>
-                            <input id="userId" name="userId" type="hidden" value="{{Auth::user()->id}}">
                             <div class="row">
                                 <div class="input-group control-group increment" >
                                     <label for="photo">Photo:</label>
                                     <input class="col-lg-5" id="photo" type="file" name="photo" class="form-control" required>
                                 </div>
-                                @if ($errors->any())
-                                    @foreach($errors->all() as $error)
-                                        <div class="row" style = "color:red"> {{$error}}</div>
-                                    @endforeach
-                                @endif
+                                @if ($errors->has('photo')) <p style="color:red;">{{ $errors->first('photo') }}</p> @endif
                             </div>
                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                            <input id="userId" name="userId" type="hidden" value="{{Auth::user()->id}}">
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="form-group col-md-4">

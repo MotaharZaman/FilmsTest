@@ -58,6 +58,21 @@ class FilmController extends Controller
     {
         $data = $request->all();
 
+        $validator = \Validator::make($request->all(),[
+            'film_Name' => 'required|max:50',
+            'description' => 'required|max:500',
+            'release' => 'required|date',
+            'rating' => 'required|digits_between:1,5',
+            'price' => 'required|numeric',
+            'ticket' => 'required|max:50',
+            'country' => 'required|max:50',
+            'genre' => 'required',
+            "photo" => "required|mimes:jpeg,png,jpg,gif,svg|max:1024",
+        ]);
+        if($validator->fails()){
+            return \Redirect::back()->withInput()->withErrors( $validator );
+        }
+
         $film = new Film();
         $film->setName($data['film_Name']);
         $film->getUser()->setId($data['userId']);
