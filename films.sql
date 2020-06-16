@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 15, 2020 at 05:23 PM
+-- Generation Time: Jun 15, 2020 at 07:14 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.27-6+ubuntu18.04.1+deb.sury.org+1
 
@@ -49,7 +49,8 @@ INSERT INTO `comment` (`id`, `film_id`, `user_id`, `comment`, `status`, `created
 (10, 3, 1, 'yes, this ia a good movie', 1, '2020-06-14 13:18:45'),
 (11, 1, 1, 'i saw it many years ago, i amused the love of a patriot', 1, '2020-06-14 13:20:10'),
 (12, 5, 1, 'Working good', 1, '2020-06-14 17:39:03'),
-(13, 4, 1, 'hello', 1, '2020-06-15 18:51:54');
+(13, 4, 1, 'hello', 1, '2020-06-15 18:51:54'),
+(14, 7, 1, 'dtyjhgf', 1, '2020-06-16 01:00:51');
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,7 @@ CREATE TABLE `film` (
   `user_id` int(32) NOT NULL,
   `name` varchar(128) NOT NULL,
   `description` text NOT NULL,
-  `release` varchar(64) NOT NULL,
+  `release` date NOT NULL,
   `rating` int(4) NOT NULL,
   `ticket` varchar(64) NOT NULL,
   `price` int(16) NOT NULL,
@@ -77,12 +78,14 @@ CREATE TABLE `film` (
 --
 
 INSERT INTO `film` (`id`, `user_id`, `name`, `description`, `release`, `rating`, `ticket`, `price`, `country`, `photo`, `status`, `created_at`) VALUES
-(1, 1, 'patriot', 'this is a story of the people who lover their country', '1625', 5, 'available', 200, 'US', '', 1, '2020-06-12 20:51:23'),
-(2, 2, 'Fighter', 'it is a fight action cinema', '2020', 4, 'available', 100, 'UK', '', 1, '2020-06-13 18:36:08'),
-(3, 1, 'Postmaster', 'it is a cinema about the life of a postmaster', '2012', 4, 'available', 200, 'Bangladesh', '', 1, '2020-06-13 18:36:08'),
-(4, 1, 'sdgfd', 'fdhgf', 'dfgh', 5, 'yes', 200, 'UK', '1592129528sdgfd.png', 1, '2020-06-14 16:17:50'),
-(5, 1, 'sdgfd', 'fdhgf', 'dfgh', 5, 'cxgfh', 200, 'dfghdf', '1592130112sdgfd.png', 1, '2020-06-14 16:21:52'),
-(6, 1, 'Ghost Hunting', 'it is a horror movie', 'yes', 5, 'available', 200, 'US', '1592160070Ghost Hunting.png', 1, '2020-06-15 00:41:10');
+(1, 1, 'patriot', 'this is a story of the people who lover their country', '2020-06-16', 5, 'available', 200, 'US', '', 1, '2020-06-12 20:51:23'),
+(2, 2, 'Fighter', 'it is a fight action cinema', '2020-06-16', 4, 'available', 100, 'UK', '', 1, '2020-06-13 18:36:08'),
+(3, 1, 'Postmaster', 'it is a cinema about the life of a postmaster', '2020-06-16', 4, 'available', 200, 'Bangladesh', '', 1, '2020-06-13 18:36:08'),
+(4, 1, 'sdgfd', 'fdhgf', '2020-06-16', 5, 'yes', 200, 'UK', '1592129528sdgfd.png', 1, '2020-06-14 16:17:50'),
+(5, 1, 'sdgfd', 'fdhgf', '2020-06-16', 5, 'cxgfh', 200, 'dfghdf', '1592130112sdgfd.png', 1, '2020-06-14 16:21:52'),
+(6, 1, 'Ghost Hunting', 'it is a horror movie', '2020-06-16', 5, 'available', 200, 'US', '1592160070Ghost Hunting.png', 1, '2020-06-15 00:41:10'),
+(7, 1, 'ytujty', 'hjfgh', '2020-06-16', 3, 'fghnfgh', 344, 'fhgfhgh', '1592247214ytujty.png', 1, '2020-06-16 00:53:34'),
+(8, 1, 'sdgdf', 'dfgdf', '2020-06-03', 4, 'dfdf', 233, 'bd', '1592247694sdgdf.png', 1, '2020-06-16 01:01:34');
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,13 @@ INSERT INTO `film_genre` (`id`, `film_id`, `genre`, `createrAt`) VALUES
 (10, 3, 5, '2020-06-13 18:37:40'),
 (11, 5, 3, '2020-06-15 00:38:37'),
 (12, 6, 2, '2020-06-15 00:41:10'),
-(13, 6, 8, '2020-06-15 00:41:10');
+(13, 6, 8, '2020-06-15 00:41:10'),
+(14, 7, 1, '2020-06-16 00:53:34'),
+(15, 7, 6, '2020-06-16 00:53:34'),
+(16, 7, 9, '2020-06-16 00:53:34'),
+(17, 8, 1, '2020-06-16 01:01:34'),
+(18, 8, 5, '2020-06-16 01:01:34'),
+(19, 8, 9, '2020-06-16 01:01:34');
 
 -- --------------------------------------------------------
 
@@ -204,7 +213,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (1, 'zaman', 'motaharz95@gmail.com', NULL, '$2y$10$b4rWe8w6nqOCMpleN2FDZO/2bL2rk4W7Ru6eyb3n21USeVltzhaPq', 'cG7g6l5SIHa6npvXc3GqHd7ZDcaGK62rt5qz0Tnr4gHobsah73gV2UdlVPF1', '2020-06-11 05:39:50', '2020-06-11 05:39:50'),
 (2, 'Chowdhury', 'chowdhury@hotmail.com', NULL, '$2y$10$b4rWe8w6nqOCMpleN2FDZO/2bL2rk4W7Ru6eyb3n21USeVltzhaPq', NULL, NULL, NULL),
 (3, 'Ari Conroy MD', 'hellen17@example.org', '2020-06-15 10:09:24', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vpnVEDBIl9', '2020-06-15 10:09:24', '2020-06-15 10:09:24'),
-(4, 'Ara Aufderhar', 'orie.harris@example.net', '2020-06-15 10:09:24', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Q4LQDpyQhg', '2020-06-15 10:09:24', '2020-06-15 10:09:24');
+(4, 'Ara Aufderhar', 'orie.harris@example.net', '2020-06-15 10:09:24', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Q4LQDpyQhg', '2020-06-15 10:09:24', '2020-06-15 10:09:24'),
+(5, 'Nicole Jast Sr.', 'jabari89@example.com', '2020-06-15 18:25:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'seG3BZF5NF', '2020-06-15 18:25:26', '2020-06-15 18:25:26'),
+(6, 'Filiberto Cormier DVM', 'shany43@example.com', '2020-06-15 18:25:26', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EMzqRcMAOF', '2020-06-15 18:25:26', '2020-06-15 18:25:26');
 
 --
 -- Indexes for dumped tables
@@ -261,17 +272,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `film`
 --
 ALTER TABLE `film`
-  MODIFY `id` int(64) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(64) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `film_genre`
 --
 ALTER TABLE `film_genre`
-  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `genre_list`
 --
@@ -286,7 +297,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
